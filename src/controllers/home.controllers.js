@@ -1,6 +1,5 @@
 import { nanoid } from "nanoid";
 import { db } from "../database/database.connection.js";
-import { response } from "express";
 
 export async function shorten(req, res) {
   const { url } = req.body;

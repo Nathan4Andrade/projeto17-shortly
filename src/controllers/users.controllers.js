@@ -49,16 +49,16 @@ export async function signin(req, res) {
 export async function getMe(req, res) {
   const { user } = res.locals;
   try {
-    const urls = (
+    const links = (
       await db.query(
-        `SELECT urls.id, urls.url, urls."shortUrl", urls."visitCount" FROM urls WHERE urls."userId"=$1`,
+        `SELECT links.id, links.url, links."shortUrl", links."visitCount" FROM links WHERE links."userId"=$1`,
         [user.id]
       )
     ).rows;
 
-    const userAndUrls = {
+    const userUrlsInfo = {
       ...user,
-      shortenedUrls: urls.map((url) => ({
+      shortenedUrls: links.map((url) => ({
         id: url.id,
         url: url.url,
         shortUrl: url.shortUrl,
@@ -66,7 +66,7 @@ export async function getMe(req, res) {
       })),
     };
 
-    res.send(userAndUrls);
+    res.send(userUrlsInfo);
   } catch (error) {
     res.status(500).send(error.message);
   }
