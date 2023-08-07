@@ -55,10 +55,19 @@ export async function getMe(req, res) {
         [user.id]
       )
     ).rows;
+    const visitCount = (
+      await db.query(
+        `SELECT SUM(links."visitCount") AS "visitCount" FROM links WHERE links."userId" =$1`,
+        [user.id]
+      )
+    ).rows[0].visitCount;
     delete user.password;
+    delete user.email;
+    delete user.createdAt;
 
     const userUrlsInfo = {
       ...user,
+      visitCount,
       shortenedUrls: links.map((url) => ({
         id: url.id,
         url: url.url,
@@ -66,6 +75,9 @@ export async function getMe(req, res) {
         visitCount: url.visitCount,
       })),
     };
+
+    delete user.email;
+    delete user.createdAt;
 
     res.send(userUrlsInfo);
   } catch (error) {
