@@ -1,12 +1,8 @@
-import { Router } from "express"
-import { openURL, ranking, URL} from "../controllers/ranking.controllers.js"
+import { Router } from "express";
+import { ranking } from "../controllers/ranking.controllers.js";
 
-const rankingRouter = Router()
+const rankingRouter = Router();
 
-rankingRouter.get("/urls/:id", URL)
+rankingRouter.get("/ranking", ranking);
 
-rankingRouter.get("/urls/open/:shortUrl", openURL)
-
-rankingRouter.get("/ranking", ranking)
-
-export default rankingRouter
+export default rankingRouter;
