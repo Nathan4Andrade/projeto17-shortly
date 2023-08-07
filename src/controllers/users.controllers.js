@@ -55,6 +55,7 @@ export async function getMe(req, res) {
         [user.id]
       )
     ).rows;
+    delete user.password;
 
     const userUrlsInfo = {
       ...user,

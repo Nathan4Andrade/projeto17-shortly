@@ -22,6 +22,6 @@ homeRouter.get("/urls/:id", getUrlById);
 
 homeRouter.delete("/urls/:id", validateAuth, deleteURL);
 
-homeRouter.get("/urls/open:shortUrl", openShortUrl);
+homeRouter.get("/urls/open/:shortUrl", openShortUrl);
 
 export default homeRouter;
